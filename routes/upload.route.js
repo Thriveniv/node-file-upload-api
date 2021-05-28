@@ -5,10 +5,15 @@ const controller = require("../controller/fileUpload.controller");
 
 let routes = (app) => {
   router.post("/upload-file", controller.uploadFile)
-
+  router.post("/upload-cover", controller.coverImage)
+  router.post("/create-post", controller.createPost)
+  router.post("/create-md", controller.createMd)
   router.get("/files", controller.getFilesList)
-
+  router.get("/getblogs", controller.getblogs)
+  router.get("/getcontent", controller.getPostContent)
   router.get("/files/:name", controller.downloadFiles)
+  router.delete("/deletepost", controller.deletePost)
+  
 
   app.use(router);
 };

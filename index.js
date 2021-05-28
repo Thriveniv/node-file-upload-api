@@ -11,7 +11,8 @@ var corsConfig = {
 app.use(cors(corsConfig));
 
 const evokeRoutes = require("./routes/upload.route");
-
+app.use(express.text());
+app.use( express.json() );   
 app.use(express.urlencoded({ 
   extended: true 
 }));
