@@ -109,6 +109,11 @@ const updatePost = async (req, res) => {
       }
       
     }
+    else{
+      res.status(501).send({
+        "error":"post is missing"
+      })
+    }
   }
    
   
