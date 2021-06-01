@@ -76,7 +76,8 @@ fs.writeFile(path, req.body, function writeJSON(err) {
 });
     res.status(200).send(
       {
-        "fileuploaded":path
+        "fileuploaded":path,
+        "post_id":id
       }
        );
   } catch (err) {
@@ -150,33 +151,41 @@ const downloadFiles = (req, res) => {
     });
 };
 const getPostContent = (req, res) => {
-  const fileName = req.query.name;
-  const path = __basedir + "/public/uploads/";
-  fs.readFile(path + fileName+'.md', (error, data) => {
-    if(error) {
-        throw error;
+  const fileid = req.query.id;
+  const path = __basedir + "/public/"+"blogs.json";
+  const file = require(path);
+  var postcontent;
+ try{
+  for (let index in file.blogs) {
+    if (file.blogs[index].post_id==fileid) {
+      postcontent = file.blogs[index]
     }
-    var result = md.parse(data.toString());
-console.log(result);
-  //  console.log(data.toString());
-    res.status(200).send(result);
-    //res.status(200).send(json2md(result));
+  }
+ }
+ catch(error){
+res.status(400).send(
+ {
+  "id":"post not found"
+ }
+)
+ }
+ //console.log(postcontent);
+ res.status(200).send(postcontent);
 
-});
 };
 const getblogs = (req,res) =>{
-  const fileName = req.query.name;
+  const author = req.query.name;
   const path = __basedir + "/public/blogs.json";
-  fs.readFile(path, (error, data) => {
-    if(error) {
-        throw error;
+  const file = require(path);
+  var postcontent=[];
+  //var temp =JSON.parse(data);
+  for (let index in file.blogs) {
+    if (file.blogs[index].author_name==author) {
+      console.log(file.blogs[index].author_name)
+      postcontent.push(file.blogs[index]);
     }
-    
-    console.log(JSON.parse(data));
-  //  console.log(data.toString());
-    res.status(200).send(JSON.parse(data));
-
-});
+  }
+    res.status(200).send(postcontent);
 
 };
 
