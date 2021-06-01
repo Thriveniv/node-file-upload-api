@@ -88,6 +88,50 @@ fs.writeFile(path, req.body, function writeJSON(err) {
     });
   }
 };
+const updatePost = async (req, res) => {
+  try {
+   const fileid=req.query.id;
+   const author=req.query.name;
+   const path = __basedir + "/public/"+"blogs.json";
+   const file = require(path);
+
+   for (let index in file.blogs) {
+    if (file.blogs[index].post_id==fileid) {
+      if(file.blogs[index].author_name == author ){
+        file.blogs.splice(index,1)
+        file.blogs.push(req.body);
+      }
+      else
+      {
+        res.status(501).send({
+          "error":"un authorised access"
+        })
+      }
+      
+    }
+  }
+   
+  
+
+    if (req.body.post_id == null) {
+      return res.status(400).send({ message: "blog is not formatted properly, ID is missing" });
+    }
+fs.writeFile(path, JSON.stringify(file,null,4), function writeJSON(err) {
+  if (err) return console.log(err);
+  console.log(file.blogs.length);
+  console.log('writing to ' + path);
+});
+    res.status(200).send(
+      req.body
+       );
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).send({
+      message: `Error occured: ${err}`,
+    });
+  }
+};
 const createPost = async (req, res) => {
   try {
    // await createblog(req, res);
@@ -197,7 +241,7 @@ const deletePost = (req,res) =>{
 var index = -1;
 
 var filteredRes = file.blogs.find(function(item, i){
- if(item.post_id === req.query.postid){
+ if(item.post_id === req.query.id){
  index = i;
  return i;
  }
@@ -209,15 +253,19 @@ if(index==-1)
 res.send("failed to find the blog");
 }
 else{
-  
-  file.blogs.splice(index,1)
+  if(file.blogs[index].author_name == req.query.name )
+ { file.blogs.splice(index,1)
   fs.writeFile(path, JSON.stringify(file,null,4), function writeJSON(err) {
     if (err) return console.log(err);
     console.log(file.blogs.length);
     console.log('writing to ' + path);
-  });
+  });}
+  else
+  res.status(501).send({
+    "erro":"un authorised access "
+  })
   res.send({
-    "13214fghf43":"post deletd"
+    "id":"post deletd"
   });
 }
 
@@ -227,4 +275,4 @@ console.log(err)
 }
 
 }
-module.exports = { uploadFile, downloadFiles, getFilesList,coverImage,getPostContent,createPost,getblogs,deletePost,createMd };
+module.exports = { uploadFile, downloadFiles, getFilesList,coverImage,getPostContent,createPost,getblogs,deletePost,createMd,updatePost };

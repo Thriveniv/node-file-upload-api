@@ -1,28 +1,8 @@
 {
     "blogs": [
         {
-            "post_id": "1234",
-            "author_name": "name1",
-            "author_contact": "",
-            "blog_title": "",
-            "blog_cover": "",
-            "blog_content": "",
-            "posted_on": "",
-            "last_modified": ""
-        },
-        {
             "post_id": "12345",
             "author_name": "name2",
-            "author_contact": "",
-            "blog_title": "",
-            "blog_cover": "",
-            "blog_content": "",
-            "posted_on": "",
-            "last_modified": ""
-        },
-        {
-            "post_id": "123",
-            "author_name": "name3",
             "author_contact": "",
             "blog_title": "",
             "blog_cover": "",

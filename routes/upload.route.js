@@ -13,7 +13,7 @@ let routes = (app) => {
   router.get("/getcontent", controller.getPostContent)
   router.get("/files/:name", controller.downloadFiles)
   router.delete("/deletepost", controller.deletePost)
-  
+  router.put("/updatepost",controller.updatePost)
 
   app.use(router);
 };
