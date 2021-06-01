@@ -232,7 +232,7 @@ const getblogs = (req,res) =>{
   //var temp =JSON.parse(data);
   for (let index in file.blogs) {
     if (file.blogs[index].author_name==author) {
-      console.log(file.blogs[index].author_name)
+     // console.log(file.blogs[index].author_name)
       postcontent.push(file.blogs[index]);
     }
   }
