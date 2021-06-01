@@ -94,9 +94,11 @@ const updatePost = async (req, res) => {
    const author=req.query.name;
    const path = __basedir + "/public/"+"blogs.json";
    const file = require(path);
+   var found=false;
 
    for (let index in file.blogs) {
     if (file.blogs[index].post_id==fileid) {
+      found=true;
       if(file.blogs[index].author_name == author ){
         file.blogs.splice(index,1)
         file.blogs.push(req.body);
@@ -109,13 +111,13 @@ const updatePost = async (req, res) => {
       }
       
     }
-    else{
-      res.status(501).send({
-        "error":"post is missing"
-      })
-    }
-  }
    
+  }
+  if(!found){
+    res.status(501).send({
+      "error":"post is missing"
+    })
+  }
   
 
     if (req.body.post_id == null) {
