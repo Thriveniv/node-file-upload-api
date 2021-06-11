@@ -145,7 +145,7 @@ const createPost = async (req, res) => {
    const path = __basedir + "/public/"+"blogs.json";
    const file = require(path);
    file.blogs.push(req.body);
-  
+  console.log("base  directory is" + __basedir);
 
     if (req.body.post_id == null) {
       return res.status(400).send({ message: "blog is not formatted properly, ID is missing" });
