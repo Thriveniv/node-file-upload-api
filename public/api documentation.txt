@@ -1,0 +1,22 @@
+API Doc
+>
+https://blogs-file-uploader.herokuapp.com/
+deployed at heroku
+
+
+Following endpoints and teh methods to query the data
+Endpoints      Methods
+----------     --------
+{baseurl}/files ---------- GET
+---
+desc
+---
+list files of blogs
+------------------
+Query parameters
+-------
+none
+REsponse
+-----------------
+200 ok on successfull transaction
+lists JSON Object of blogs
